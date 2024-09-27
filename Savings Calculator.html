@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Savings Calculator</title>
+</head>
+<body>
+    <h1>Savings Calculator</h1>
+
+    <!-- Form for input fields -->
+    <form id="savingsForm">
+        <label for="firstSalary">First Month Salary:</label>
+        <input type="number" id="firstSalary" required><br><br>
+        
+        <label for="lastSalary">Last Month Salary:</label>
+        <input type="number" id="lastSalary" required><br><br>
+        
+        <label for="yearsWorked">Number of Years Worked:</label>
+        <input type="number" id="yearsWorked" required><br><br>
+        
+        <label for="savePercent">Percentage to Save (%):</label>
+        <input type="number" id="savePercent" value="5" required><br><br>
+        
+        <button type="button" onclick="calculateSavings()">Calculate Savings</button>
+    </form>
+
+    <h2>Total Savings: <span id="totalSavings">0</span></h2>
+
+    <!-- JavaScript logic for calculation -->
+    <script>
+        function calculateSavings() {
+            const firstSalary = parseFloat(document.getElementById('firstSalary').value);
+            const lastSalary = parseFloat(document.getElementById('lastSalary').value);
+            const yearsWorked = parseInt(document.getElementById('yearsWorked').value);
+            const savePercent = parseFloat(document.getElementById('savePercent').value);
+
+            const months = yearsWorked * 12;
+            const monthlyIncrease = (lastSalary - firstSalary) / (months - 1);
+            let totalSavings = 0;
+
+            for (let month = 0; month < months; month++) {
+                const currentSalary = firstSalary + (monthlyIncrease * month);
+                const monthlySavings = currentSalary * (savePercent / 100);
+                totalSavings += monthlySavings;
+            }
+
+            document.getElementById('totalSavings').textContent = totalSavings.toFixed(2);
+        }
+    </script>
+</body>
+</html>
